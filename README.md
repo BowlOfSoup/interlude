@@ -21,7 +21,7 @@ The `interlude` script should now be in your `vendor/bin` directory.
 vendor/bin/interlude checkout <package>
 ```
 
-`Restore` a package to the original
+'Restore' a package to the original
 ```
 vendor/bin/interlude restore <package>
 ```
