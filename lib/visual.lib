@@ -1,0 +1,35 @@
+#! /bin/bash
+# shellcheck disable=SC2034
+
+readonly ESC_SEQ="\x1b["
+readonly COL_GREEN="${ESC_SEQ}32;01m"
+readonly COL_BOLD_GREEN="${ESC_SEQ}1;32m"
+readonly COL_TURQUOISE="${ESC_SEQ}36;01m"
+readonly COL_BOLD_TURQUOISE="${ESC_SEQ}1;36m"
+readonly COL_BOLD_RED="${ESC_SEQ}1;31m"
+readonly COL_RESET="${ESC_SEQ}0m"
+
+# Hides terminal cursor
+__hide_cursor() {
+    echo -ne "${ESC_SEQ}?25l"
+}
+
+# Displays a rotating slash (loading/processing indicator)
+visual_rotate_slash() {
+    tput cr; tput cuf 1
+    __hide_cursor
+
+    while :; do
+        for i in '/' '-' '\' '|'; do
+            echo -ne "$i"
+            sleep 0.1
+            tput cub 1
+        done
+    done
+}
+
+visual_step_message() {
+    message="$1"
+
+    echo -ne "\r${COL_TURQUOISE}[${COL_BOLD_GREEN}→${COL_TURQUOISE}] $message${COL_RESET}\n"
+}

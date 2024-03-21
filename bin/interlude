@@ -1,0 +1,15 @@
+#! /bin/bash
+# shellcheck disable=SC2034
+
+readonly APP_DIR=$(dirname "$0")/../
+
+# -- Dependency loader
+. "$APP_DIR/third_party/loader.sh"
+loader_addpath "$APP_DIR/src" "$APP_DIR/lib"
+
+# -- Assign input to (global) variables
+COMMAND="$1"
+PACKAGE_NAME="$2"
+
+# -- Execute main script
+load main.sh
