@@ -1,5 +1,13 @@
 {
   "name": "bowlofsoup/interlude",
   "description": "Have an interlude - when working with composer - develop on your packages locally.",
-  "bin": ["bin/interlude"]
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "BowlOfSoup",
+      "homepage": "https://github.com/BowlOfSoup"
+    }
+  ],
+  "bin": ["bin/interlude"],
+  "minimum-stability": "stable"
 }
