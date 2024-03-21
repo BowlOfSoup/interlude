@@ -2,6 +2,7 @@
   "name": "bowlofsoup/interlude",
   "description": "Have an interlude - when working with composer - develop on your packages locally.",
   "license": "MIT",
+  "type": "library",
   "authors": [
     {
       "name": "BowlOfSoup",
