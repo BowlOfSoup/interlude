@@ -1,4 +1,5 @@
-#! /bin/bash
+#! /bin/sh
+# shellcheck disable=SC2039,SC2059
 
 include visual.lib
 
@@ -11,19 +12,20 @@ process_command_wait() {
     shift 2
     cmd=("$@")
 
-    echo -ne "${COL_TURQUOISE}[${COL_GREEN} ${COL_TURQUOISE}] $message${COL_RESET}"
+    printf "${COL_TURQUOISE}[${COL_GREEN} ${COL_TURQUOISE}] $message${COL_RESET}"
 
     visual_rotate_slash &
+
     local ROTATE_PID=$!
     disown $ROTATE_PID
 
     if $exec_function "${cmd[@]}"; then
         kill $ROTATE_PID >/dev/null 2>&1
-        echo -ne "\r${COL_TURQUOISE}[${COL_BOLD_GREEN}✔${COL_TURQUOISE}] $message${COL_RESET}\n"
+        printf "\r${COL_TURQUOISE}[${COL_BOLD_GREEN}✔${COL_TURQUOISE}] $message${COL_RESET}\n"
     else
         kill $ROTATE_PID >/dev/null 2>&1
-        echo -ne "\r${COL_TURQUOISE}[${COL_BOLD_RED}✖${COL_TURQUOISE}] $message${COL_RESET}\n"
-        echo -ne "\r[${COL_BOLD_RED}ERR${COL_RESET}] $ERROR_MSG\n"
+        printf "\r${COL_TURQUOISE}[${COL_BOLD_RED}✖${COL_TURQUOISE}] $message${COL_RESET}\n"
+        printf "\r[${COL_BOLD_RED}ERR${COL_RESET}] $ERROR_MSG\n"
 
         exit 1
     fi

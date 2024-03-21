@@ -9,37 +9,23 @@ on packages.
 * You can use `composer require` to e.g. add dependencies (vendor dir is also symlinked to the original) 
 
 ### Installation
-(1) Add the following to your `composer.json`:
-```
-{
-    "scripts": {
-        "post-install-cmd": [
-            "chmod +x vendor/bin/interlude"
-        ],
-        "post-update-cmd": [
-            "chmod +x vendor/bin/interlude"
-        ]
-    }
-}
-```
-
-(2) Then require the package:
+Require the package:
 ```
 composer require bowlofsoup/interlude "^version"
 ```
 
 The `interlude` script should now be in your `vendor/bin` directory.
 
-(3) Add the following to your `.gitignore`:
+Add the following to your `.gitignore`:
 
 ```
 vendor-local/
 ```
 
 ### Usage
-'Checkout' a package for local development
+'Checkout' a package for local development (use `sh`)
 ```
-vendor/bin/interlude checkout <package>
+sh vendor/bin/interlude checkout <package>
 ```
 
 'Restore' a package to the original

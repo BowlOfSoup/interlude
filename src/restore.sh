@@ -1,5 +1,5 @@
-#! /bin/bash
-# shellcheck disable=SC2034
+#! /bin/sh
+# shellcheck disable=SC2034,SC2153,SC2039,SC2059
 
 include process.lib
 include visual.lib
@@ -11,10 +11,9 @@ __check_git_status() {
 
     # Check if there where changes made
     if git -C "$package_vendor_local_dir" status --porcelain | grep -qv ' vendor'; then
-        echo -ne "\r[${COL_BOLD_TURQUOISE}INF${COL_RESET}] Changes where made in the working directory $package_vendor_local_dir\n"
+        printf "\r[${COL_BOLD_TURQUOISE}INF${COL_RESET}] Changes where made in the working directory $package_vendor_local_dir\n"
 
-        # shellcheck disable=SC2154
-        if ! input_helpers_confirmation "Do you want to continue?" "${cmd[@]}"; then
+        if ! input_helpers_confirmation "Do you want to continue?"; then
             exit 0
         fi
 

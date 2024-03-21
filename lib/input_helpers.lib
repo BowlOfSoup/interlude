@@ -1,9 +1,10 @@
-#! /bin/bash
+#! /bin/sh
 
 input_helpers_confirmation() {
     readonly question="$1"
 
-    read -rp "$question [y/n]? " continue
+    echo "$question [y/n]? "
+    read -r continue
     continue=${continue:-N}
 
     case "$continue" in

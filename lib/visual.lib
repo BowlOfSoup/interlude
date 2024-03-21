@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/sh
 # shellcheck disable=SC2034
 
 readonly ESC_SEQ="\x1b["
@@ -11,7 +11,7 @@ readonly COL_RESET="${ESC_SEQ}0m"
 
 # Hides terminal cursor
 __hide_cursor() {
-    echo -ne "${ESC_SEQ}?25l"
+    printf "${ESC_SEQ}?25l"
 }
 
 # Displays a rotating slash (loading/processing indicator)
@@ -21,7 +21,7 @@ visual_rotate_slash() {
 
     while :; do
         for i in '/' '-' '\' '|'; do
-            echo -ne "$i"
+            printf "$i"
             sleep 0.1
             tput cub 1
         done
@@ -31,5 +31,5 @@ visual_rotate_slash() {
 visual_step_message() {
     message="$1"
 
-    echo -ne "\r${COL_TURQUOISE}[${COL_BOLD_GREEN}→${COL_TURQUOISE}] $message${COL_RESET}\n"
+    printf "\r%b[%b→%b] %s%b\n" "$COL_TURQUOISE" "$COL_BOLD_GREEN" "$COL_TURQUOISE" "$message" "$COL_RESET"
 }

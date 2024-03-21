@@ -1,5 +1,5 @@
-#! /bin/bash
-# shellcheck disable=SC2034,SC2153
+#! /bin/sh
+# shellcheck disable=SC2034,SC2153,SC2039,SC2059
 
 include process.lib
 include visual.lib

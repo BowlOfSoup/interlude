@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/sh
 # shellcheck disable=SC2034,SC2153
 
 include checkout.sh
@@ -11,7 +11,7 @@ include visual.lib
 readonly VENDOR_LOCAL_DIR="./vendor-local"
 readonly VENDOR_BACKUP_DIR="./vendor/backup-local"
 
-PACKAGE_DIR="${PACKAGE_NAME///\/}"
+PACKAGE_DIR=$(echo "$PACKAGE_NAME" | sed 's/\//\//g')
 
 # ↓ -- Functions -- ↓
 
@@ -25,7 +25,7 @@ __create_vendor_dirs() {
 }
 
 main() {
-    if [ "$COMMAND" == "" ]; then
+    if [ "$COMMAND" = "" ] || [ "$PACKAGE_NAME" = "" ]; then
         echo "Usage: $0 <command> <package>"
         echo ""
         echo "This script is a helper to develop external packages locally."
@@ -40,13 +40,13 @@ main() {
 
     __create_vendor_dirs
 
-    echo -e "\n${COL_GREEN}Develop locally for:${COL_RESET} $PACKAGE_NAME\n"
+    printf "\n%bDevelop locally for:%b %s\n\n" "$COL_GREEN" "$COL_RESET" "$PACKAGE_NAME"
 
-    if [ "$COMMAND" == "checkout" ]; then
+    if [ "$COMMAND" = "checkout" ]; then
         checkout_main
     fi
 
-    if [ "$COMMAND" == "restore" ]; then
+    if [ "$COMMAND" = "restore" ]; then
         restore_main
     fi
 }
