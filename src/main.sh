@@ -32,8 +32,8 @@ main() {
         echo "Package will be put in the 'vendor-local' directory where you can work with 'git'"
         echo ""
         echo "Commands:"
-        echo "  checkout <package-name> Skip dropping and importing the database."
-        echo "  restore <package-name>  Directory of Behat features to run."
+        echo "  checkout <package-name> Checkout a package and develop from the vendor-local directory"
+        echo "  restore <package-name>  Restore a package to its state before checking out"
 
         exit 0
     fi
