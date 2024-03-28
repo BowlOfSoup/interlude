@@ -9,9 +9,10 @@ include visual.lib
 # ↓ -- Global variables -- ↓
 
 readonly VENDOR_LOCAL_DIR="./vendor-local"
-readonly VENDOR_BACKUP_DIR="./vendor/backup-local"
+readonly VENDOR_BACKUP_DIR="$HOME/.composer/interlude/backup-local"
 
 PACKAGE_DIR=$(echo "$PACKAGE_NAME" | sed 's/\//\//g')
+PACKAGE_DIR_HASHED=$(printf "%s" "$(pwd)" | openssl md5 | cut -d' ' -f2)
 
 # ↓ -- Functions -- ↓
 

@@ -44,7 +44,7 @@ __package_is_existing() {
 __restore_package() {
     local package="$1"
     local package_vendor_dir="./vendor/$PACKAGE_DIR"
-    local package_vendor_backup_dir="$VENDOR_BACKUP_DIR/$PACKAGE_DIR"
+    local package_vendor_backup_dir="$VENDOR_BACKUP_DIR/$PACKAGE_DIR_HASHED/$PACKAGE_DIR"
     local package_vendor_local_dir="$VENDOR_LOCAL_DIR/$PACKAGE_DIR"
     local target_dir
 
@@ -56,11 +56,12 @@ __restore_package() {
     rm -rf "$package_vendor_local_dir"
 
     find "$VENDOR_BACKUP_DIR" -type d -empty -exec rmdir {} +
+    find "$VENDOR_BACKUP_DIR/$PACKAGE_DIR_HASHED" -type d -empty -exec rmdir {} +
     find "$VENDOR_LOCAL_DIR" -type d -empty -exec rmdir {} +
 }
 
 restore_main() {
     process_command_wait "Checking package" __package_is_existing "$PACKAGE_NAME"
     __check_git_status
-    process_command_wait "Restoring package" __restore_package "$PACKAGE_NAME"
+    process_command_wait "Restoring package " __restore_package "$PACKAGE_NAME"
 }

@@ -1,4 +1,4 @@
 # IDE files
 /.idea/
-vendor/
-vendor-local/
+vendor
+vendor-local

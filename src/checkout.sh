@@ -90,20 +90,24 @@ __clone_package_for_local_dev() {
     return $?
 }
 
-__symlink_vendor_to_dev() {
-    local package="$1"
+__backup_package() {
     local package_vendor_dir="./vendor/$PACKAGE_DIR"
-    local package_vendor_local_dir_relative_to_vendor="../vendor-local"
-    local package_vendor_dev_dir_relative="../$package_vendor_local_dir_relative_to_vendor/$PACKAGE_DIR"
-    local package_vendor_backup_dir="$VENDOR_BACKUP_DIR/$PACKAGE_DIR"
-    local package_vendor_dir_root
-    local package_name
+    local package_vendor_backup_dir="$VENDOR_BACKUP_DIR/$PACKAGE_DIR_HASHED/$PACKAGE_DIR"
 
     if [ -d "$package_vendor_dir" ]; then
         mkdir -p "$package_vendor_backup_dir"
         cp -R  "$package_vendor_dir" "$package_vendor_backup_dir"
         rm -rf "$package_vendor_dir"
     fi
+}
+
+__symlink_vendor_to_dev() {
+    local package="$1"
+    local package_vendor_dir="./vendor/$PACKAGE_DIR"
+    local package_vendor_local_dir_relative_to_vendor="../vendor-local"
+    local package_vendor_dev_dir_relative="../$package_vendor_local_dir_relative_to_vendor/$PACKAGE_DIR"
+    local package_vendor_dir_root
+    local package_name
 
     # Create symlink
     package_vendor_dir_root=$(dirname "$package_vendor_dir")
@@ -114,11 +118,14 @@ __symlink_vendor_to_dev() {
     # Symlink project vendor directory, if we want to add deps.
     cd "$package_name" || exit
     ln -s "../../../vendor" "vendor"
+
+    cd "$APP_DIR" || exit
 }
 
 checkout_main () {
     process_command_wait "Checking existence of package" __check_package_and_directory "$PACKAGE_NAME"
     process_command_wait "Parsing repository URL" __parse_repo_url "$PACKAGE_NAME"
     process_command_wait "Cloning package for local development" __clone_package_for_local_dev
+    process_command_wait "Backing up package" __backup_package
     process_command_wait "Creating symlink to vendor-local directory" __symlink_vendor_to_dev "$PACKAGE_NAME"
 }
